@@ -287,20 +287,33 @@ export default async function plugin(bb: BbPluginApi) {
     rpcContract,
     {
       [LIST_RESOURCES]: async () => {
+        // The usage panel groups host resources into the selected machine's
+        // card. A shared resource instead creates a separate source menu item.
+        // These credentials live on the BB server, so use its primary host.
+        const host = await (async () => {
+          try {
+            const { primaryHostId } = await bb.sdk.system.config();
+            return primaryHostId ? await bb.sdk.hosts.get({ hostId: primaryHostId }) : null;
+          } catch {
+            return null;
+          }
+        })();
         const credential = readCredential();
         const accountKey =
           credential && credential.expires_at && credential.expires_at > Date.now() / 1000
             ? accountKeyFromJwt(credential.access_token)
             : null;
         return {
-          label: "Kimi Code",
+          ...(host ? {} : { label: "Kimi Code" }),
           resources: [
             {
               id: RESOURCE_ID,
               accountKey,
               providerId: "kimi-code",
               label: "Kimi Code membership",
-              scope: { kind: "shared" as const },
+              scope: host
+                ? { kind: "host" as const, hostId: host.id, hostName: host.name }
+                : { kind: "shared" as const },
             },
           ],
         };
@@ -319,7 +332,7 @@ export default async function plugin(bb: BbPluginApi) {
     {
       experimental_discoverable: true,
       experimental_description:
-        "Kimi Code membership quota from the locally logged-in Kimi Code CLI (shared across machines by the account).",
+        "Kimi Code membership quota from the Kimi Code CLI login on the BB server, shown alongside that machine's other provider limits.",
     },
   );
 

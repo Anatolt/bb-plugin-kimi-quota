@@ -8,6 +8,11 @@ description: Check the user's Kimi Code membership quota (5-hour window, monthly
 This plugin surfaces the Kimi Code membership quota in BB's usage panel (the
 same surface that shows Codex/Claude usage) and exposes a CLI command.
 
+Select the BB server's machine in Usage: Kimi appears alongside that machine's
+other provider limits. No separate Kimi source selection is needed. If BB
+cannot resolve its primary host, the plugin falls back to a separate Kimi Code
+source. The login is read on the BB server, not on remote enrolled machines.
+
 ## For agents
 
 Run:

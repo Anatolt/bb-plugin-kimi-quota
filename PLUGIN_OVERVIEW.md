@@ -2,7 +2,8 @@ See your Kimi Code membership quota inside BB, next to the usage of your other p
 
 ## What you get
 
-- A **Kimi Code** group in BB's usage panel with three windows: the rolling
+- **Kimi Code** alongside Codex/Claude in the BB server machine's usage card,
+  without switching to a separate source. It includes three windows: the rolling
   5-hour window, the monthly coding limit, and the monthly total limit, each
   with the percentage used and the reset time.
 - A `bb kimi-quota` command for the terminal and for agents, with a `--json`

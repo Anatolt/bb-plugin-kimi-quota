@@ -21,8 +21,14 @@ The API host follows the CLI region (`api.kimi.com` for `mainland-cn`,
 
 ## Usage panel
 
-Install the plugin and open BB's usage panel. A **Kimi Code** group shows the
-5-hour rolling window and the monthly coding/total limits with reset times.
+Install the plugin and open BB's usage panel with the BB server's machine
+selected. **Kimi Code** appears in the same card as that machine's Codex/Claude
+limits, with no separate Kimi source to select. It shows the 5-hour rolling
+window and the monthly coding/total limits with reset times.
+
+The login is read on the BB server, not on enrolled remote machines. If BB
+cannot identify its server machine, Kimi remains available as a separate
+**Kimi Code** source in the panel's menu.
 
 ## Terminal
 
